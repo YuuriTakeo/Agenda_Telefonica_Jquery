@@ -1,0 +1,164 @@
+<!-- 
+Implemente uma simples agenda telefônica que possua os recursos listadas abaixo:
+
+Funcionalidade 1 - Adicionar um registro (3 pontos)
+Funcionamento: Após o usuário inserir os dados do formulário (nome e telefone) e clicar em [ADICIONAR], os dados devem ser listados abaixo, conforme o layout apresentado. 
+Restrições: caso o campo telefone possua um valor menor que nove caracteres, deve-se adicionar a classe red ao campo em questão, caso contrário o campo deverá permanecer como está (sem a classe red). Para verificar a quantidade de caracteres utilize a função já implementada chamada checarTelefone(valor). Esta função recebe um valor e retorna verdadeiro caso a quantidade de caracteres for maior ou igual a nove, e falsa caso contrário.
+
+Funcionalidade 2 - Atualizar um registro parte 1 (1 ponto)
+Funcionamento: ao clicar no ícone [EDITAR], os dados atuais devem ser previamente carregados nos campos que encontram-se na aba atualizar. Para carregar a aba atualizar, utilize o seguinte código $('.tabs').tabs('select','sec-atualizar');
+
+Funcionalidade 3 - Atualizar um registro parte 2 (2 pontos)
+Funcionamento: ao clicar em [ATUALIZAR], deve-se atualizar os dados (nome e telefone) do registro em questão, levando-se em consideração o id escolhido.
+
+Funcionalidade 4 - Excluir um registro (1 ponto)
+Funcionamento: ao clicar no ícone [EXCLUIR], deve-se excluir o registro em questão.
+
+Funcionalidade 5 - Procurar um registro (2 pontos)
+Funcionamento: após digitar o nome a ser procurado e clicar em [PROCURAR], deve-se listar apenas o registro o qual o nome é exatamente igual ao digitado no campo.
+
+Funcionalidade 6 - Mostrar um registro (2 pontos)
+Funcionamento: ao clicar em [MOSTRAR TODOS], deve-se listar todos os registros cadastrados pelo usuário e limpar o campo procurar.
+********************************************************************************************
+-->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Agenda Telefônica</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+	<link rel="stylesheet" href="css/estilos.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+
+	<div class="row">
+		<div class="col s12 teal white-text center">
+			<h1>Minha Agenda</h1>
+		</div>
+	</div>
+
+
+	<!-- abas -->
+	<ul id="tabs-swipe-demo" class="tabs center">
+		<li class="tab col s3"><a class="active" href="#add">Adicionar</a></li>
+		<li class="tab col s3"><a href="#up">Atualizar</a></li>
+		<li class="tab col s3"><a href="#find">Procurar</a></li>
+	</ul>
+	<!-- /abas -->
+
+	<!-- adicionar -->
+	<div class="row" id="add">
+		<div class="col s12 l4 offset-l4">
+			<div class="card">
+				<div class="row">
+					<div class="input-field col s12">
+						<input placeholder="Digite o Nome" id="addNome" type="text">
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<input placeholder="Digite o Telefone" id="addTelefone" type="text">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12">
+						<a href="#" class="btn" id="btn-add">adicionar</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--/ adicionar -->
+
+	<!-- procurar -->
+	<div class="row" id="find">
+		<div class="col  s12 l4 offset-l4">
+			<div class="card">
+				<div class="row">
+					<div class="input-field col s12">
+						<input placeholder="Digite o nome" id="findNome" type="text">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12">
+						<a href="#" class="btn" id="btn-find">procurar</a>
+						<a href="#" class="btn right" id="btn-show-all">mostrar todos</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--/ procurar -->
+
+	<!-- atualizar -->
+	<div class="row" id="up">
+		<div class="col  s12 l4 offset-l4">
+			<div class="card">
+				<div class="row">
+					<div class="input-field col s12">
+						<input placeholder="ID do registro a ser atualizado" id="upId" type="text" disabled="disabled">
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<input placeholder="Digite o nome" id="upNome" type="text">
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<input placeholder="Digite o telefone" id="upTelefone" type="text">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12">
+						<a href="#" class="btn" id="btn-up">atualizar</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--/ atualizar -->
+
+	<!-- lista -->
+	<div class="row">
+		<div class="col s12 l8 offset-l2">
+			<table>
+				<thead>
+					<tr>
+						<th>Código</th>
+						<th>Nome</th>
+						<th>Telefone</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+
+				<tbody id="lista">
+					<tr>
+						<td>0</td>   
+						<td>Felício Felizberto</td>
+						<td>(14) 99799.1234</td>
+						<td><a href="#"><i class="material-icons">edit</i></a></td>
+						<td><a href="#"><i class="material-icons">delete_forever</i></a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!--/ lista -->
+
+
+
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/materialize.min.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/checar.js"></script>
+
+</body>
+
+</html>
